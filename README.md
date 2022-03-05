@@ -11,19 +11,17 @@
 [node-image]: https://img.shields.io/badge/node.js-%3E=_12-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 
-[![NPM](https://nodei.co/npm/node-alarm.png?downloads=true)](https://nodei.co/npm/node-alarm/) 
-
 一个报警发送库，支持发送邮件和各种办公 IM 的聊天机器人，包括企业微信、飞书、钉钉。
 
 ## 安装
 
 ```
-yarn add node-alarm
+yarn add @yunnysunny/node-alarm
 ```
 
 或者
 ```
-npm install node-alarm
+npm install @yunnysunny/node-alarm
 ```
 
 ### 配置 sendmail
@@ -35,7 +33,7 @@ Windows 下没有 sendmail 的官方版本支持，需要安装一个模拟的�
 ## 示例
 
 ```javascript
-const NodeAlarm = require('node-alarm');
+const NodeAlarm = require('@yunnysunny/node-alarm');
 const EMAIL_CONFIG = {
     type: NodeAlarm.ALARM_TYPE_EMAIL,
     options: {

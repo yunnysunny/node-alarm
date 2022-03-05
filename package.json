@@ -1,5 +1,5 @@
 {
-  "name": "node-alarm",
+  "name": "@yunnysunny/node-alarm",
   "version": "0.1.0",
   "description": "Sending alarm message via email or IM robot, such as wxwork/feishu/dingtalk.",
   "main": "index.js",
