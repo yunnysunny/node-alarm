@@ -106,4 +106,4 @@ module.exports = CustomAlarm;
 
 ## 协议
 
-MIT
+[MIT](LICENSE)
