@@ -4,6 +4,19 @@ const WXWorkAlarm = require('./lib/WXWorkAlarm');
 const FeishuAlarm = require('./lib/FeishuAlarm');
 const DingtalkAlarm = require('./lib/DingtalkAlarm');
 
+/**
+ * @typedef AlarmOption
+ * 
+ * @property {string} type The type of alarm
+ * @property {object} options
+ * @property {string} options.url The url of IM robot
+ * @property {string} options.msgType The message type to send to IM robot
+ * @property {string} options.from The email sender's address
+ * @property {string|Array.<string>} options.to The email reciver's addresses
+ * @property {string=} options.sendmailPath The sendmail's path, 
+ * when it been set empty, the package will find it in PATH
+ */
+
 const ALARM_TYPE_EMAIL =  'email';
 const ALARM_TYPE_WXWORK =  'wxwork';
 const ALARM_TYPE_FEISHU =  'feishu';
@@ -22,6 +35,10 @@ function factory(type, options) {
 }
 
 class NodeAlarm {
+    /**
+     * 
+     * @param {Array.<AlarmOption>} alarmConfigs 
+     */
     constructor(alarmConfigs) {
         const alarms = [];
         for (let i=0,len=alarmConfigs.length;i<len;i++) {
