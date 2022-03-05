@@ -1,0 +1,27 @@
+{
+  "name": "node-alarm",
+  "version": "0.1.0",
+  "description": "Sending alarm message via email or work weixin.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive test/ --timeout 99999"
+  },
+  "keywords": [
+    "email",
+    "weixin",
+    "alarm"
+  ],
+  "author": "yunnysunny",
+  "license": "MIT",
+  "dependencies": {
+    "email": "^0.2.6",
+    "superagent": "^7.1.1"
+  },
+  "optionalDependencies": {
+    "eslint": "^8.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.1"
+  }
+}

@@ -1,0 +1,268 @@
+this a test msg https://kenfavors.com/code/how-to-install-and-configure-sendmail-on-ubuntu/
+How To Install And Configure Sendmail On Ubuntu
+https://gist.github.com/adamstac/7462202
+
+https://www.abeautifulsite.net/configuring-sendmail-on-ubuntu-1404
+
+1. Install Sendmail
+$ sudo apt-get install sendmail
+2. Configure /etc/hosts file:
+Find your hostname by typing:
+
+$ hostname
+Then:
+
+$ sudo nano /etc/hosts
+On the line starting with 127.0.0.1, add the hostname to the end so it looks the same as:
+
+127.0.0.1 localhost hostname
+(You willl notice that your hostname can also be identified on the line that starts with 127.0.1.1 where it appears twice)
+
+Ctrl+x, then ‘Y' to save and exit.
+
+3. Run Sendmail's config and answer ‘Y' to everything:
+$ sudo sendmailconfig
+4. Restart Apache
+$ sudo service apache2 restart
+5. Using sendmail:
+To quickly send an email:
+
+$ sendmail -v someone@email.com
+After hitting the enter key, on the line directly below, enter a From address (each line after you hit enter will be blank):
+
+From: you@yourdomain.com
+Hit enter again and type a subject:
+
+Subject: This is the subject field of the email
+Hit enter again and type the message:
+
+This is the message to be sent.
+Hit enter again. To send the email, type a ‘.‘ (period/dot) on the empty line and press enter:
+
+.
+Wait a few seconds and you will see the output of the email being sent. To see more usage examples, check out the links below.
+
+https://www.computerhope.com/unix/usendmai.htm
+https://clients.javapipe.com/knowledgebase/132/How-to-Test-Sendmail-From-Command-Line-on-Linux.html
+https://help.dreamhost.com/hc/en-us/articles/216687518-How-do-I-use-Sendmail-
+
+ERRORS & SOLUTIONS
+If you can not send mail.
+
+When sending emails from your server, make sure to check any spam folders for receipt. If email is for some reason not working, try the steps below (modify the php version below as necessary):
+
+$ sudo nano /etc/php/7.0/fpm/php.ini
+Ctrl+w to search for and find ‘sendmail_path'. Uncomment this line and add the path below:
+
+sendmail_path= /usr/sbin/sendmail -t -i
+Restart php:
+
+$ sudo service php7.0-fpm restart
+Hosting
+Develop and scale your apps globally with DigitalOcean and/or Vultr – or use shared hosting with no server maintenance required at iMarketHost.com.
+
+Installation & Maintenance
+If you would like to get this app installed, maintained or need training, Contact Me to get current rates.
+
+Post navigation
+PreviousNext
+23 thoughts on “How To Install And Configure Sendmail On Ubuntu”
+tarek says:
+January 7, 2020 at 11:43 pm
+I don’t get this one bit, what does local host have anything to do with send mail.
+
+I can send mail via echo “My test email being sent from sendmail” | /usr/sbin/sendmail myemail@domain.com but how do I configure sendmail to always use myemail@domain.coml
+
+reply
+Ken Favors says:
+January 8, 2020 at 10:49 am
+Hello, localhost is your server which sendmail uses to send the email. The post has been updated to reflect a basic usage example that includes a ‘From’ field. To configure sendmail to always use a specific email address, check out this link at https://clients.javapipe.com/knowledgebase/132/How-to-Test-Sendmail-From-Command-Line-on-Linux.html where you would create a template file, for example:
+
+$ cd ~
+$ sudo nano mail.txt
+with some content like:
+
+To: someone@email.com
+Subject: sendmail test
+From: me@mydomain.com
+
+And here goes the e-mail body, test test test..
+and send email with:
+
+$ sendmail -vt < ~/mail.txt
+reply
+Stefan says:
+September 30, 2021 at 8:17 am
+Thank You very much. Very good instructions, now sendmail on my server works correctly.
+
+Best regards from Germany
+
+reply
+Poonam Dixit says:
+November 17, 2021 at 5:38 am
+Thank you so much . its really works me
+
+reply
+Chaimaa Moutachaouiq says:
+June 27, 2020 at 2:41 pm
+How should I veirfy that the sendmail configuration is well done?
+
+reply
+Ken Favors says:
+June 29, 2020 at 9:55 am
+Just test it from the command line using the lines of code above to send an email.
+
+reply
+Colin Parkinson says:
+July 29, 2020 at 11:38 pm
+Hi all – I’ve always had trouble with sendmail – but I thought I would try again with a new server
+When you config it you are supposed to say ‘Y’ to everything – there no option to to add/change parameters.
+Hence I get ‘connection timed out’ message – In NZ port 25 is not allowed .
+Question – were is the parameters file to change sendmail configuration.
+Much appreciated.
+
+reply
+Ken Favors says:
+August 10, 2020 at 1:18 pm
+You can see the location of the config file on the 2nd ‘Y’ option.
+The config file is located at
+
+/etc/mail/sendmail.mc
+If you would like to change the port number, see
+https://unix.stackexchange.com/questions/132711/using-port-587-with-sendmail,
+https://www.authsmtp.com/sendmail/,
+and https://www.oreilly.com/library/view/linux-network-administrators/1565924002/ch18s08.html
+
+reply
+Akshay Kshirsagar says:
+August 24, 2020 at 7:32 am
+Hi,
+
+I am not able to send a mail, can you please help me out ?
+
+root@test:/etc/mail# sendmail -v akshaymysqldba@gmail.com
+Subject: Test
+This is test mail
+.
+akshaymysqldba@gmail.com… Connecting to [127.0.0.1] via relay…
+220 localhost.localdomain ESMTP Sendmail 8.15.2/8.15.2/Debian-10; Mon, 24 Aug 2020 06:29:45 GMT; (No UCE/UBE) logging access from: localhost(OK)-localhost [127.0.0.1]
+>>> EHLO localhost.localdomain
+250-localhost.localdomain Hello localhost [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-EXPN
+250-VERB
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH DIGEST-MD5 CRAM-MD5
+250-STARTTLS
+250-DELIVERBY
+250 HELP
+>>> VERB
+250 2.0.0 Verbose mode
+>>> STARTTLS
+220 2.0.0 Ready to start TLS
+>>> EHLO localhost.localdomain
+250-localhost.localdomain Hello localhost [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-EXPN
+250-VERB
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH DIGEST-MD5 CRAM-MD5
+250-DELIVERBY
+250 HELP
+>>> VERB
+250 2.0.0 Verbose mode
+>>> MAIL From: SIZE=32 AUTH=ubuntu@localhost.localdomain
+250 2.1.0 … Sender ok
+>>> RCPT To:
+>>> DATA
+250 2.1.5 … Recipient ok
+354 Enter mail, end with “.” on a line by itself
+>>> .
+
+reply
+Tan says:
+November 1, 2020 at 9:10 am
+I’m got this too.
+
+reply
+Cesar Celis says:
+January 21, 2021 at 11:48 pm
+I have same issue
+
+reply
+aarushi says:
+July 9, 2021 at 9:30 am
+i got this too, how to resolve
+
+reply
+Dev says:
+August 16, 2021 at 4:33 am
+got this issue too – email doesnt send. No error or output explaining why? Seems to hang?
+
+reply
+Nags says:
+August 31, 2020 at 11:41 am
+Thanks, it worked for me. I have question, i need to configure to use Sendmail only as Sending SMTP server. I have apps hosted in EC2 instance and from those apps i want send emails to specific email-groups basaed on events, for example JIRA or from Confluence. How can i do that ?, do you have any other article which can help me in this ?
+
+reply
+mehaview says:
+October 24, 2020 at 12:38 pm
+Hi all
+i had this error : 530 Authentication required
+how to solve it ?
+
+reply
+Linus says:
+November 9, 2020 at 2:52 pm
+Do you know what the problem might be when an additional name is added to the sender?
+
+liwa@BRITNEYSPEARS:~$ sendmail -v
+
+>>> MAIL From: SIZE=49 AUTH=liwa@myhostname.domain.se.domain.se
+250 2.1.0 … Sender ok
+
+It just adds a FQDN, and then the domain on top of that. Might it be a corrupt SPF1 record or something?
+
+reply
+Ken Favors says:
+November 10, 2020 at 10:55 am
+Not sure if this could be the answer, but did you try to send using the format below?
+
+$ sendmail -v someone@email.com
+reply
+yarncascade.com says:
+March 1, 2021 at 4:25 am
+sudo hostnamectl set-hostname yourhostname.com
+
+reply
+sbaumg2s says:
+July 13, 2021 at 10:42 am
+How does sendmail know with which credentials it has to log in into let´s says an gmail account? sending mail via sendmail from command line works, but i don´t understand why. Why can i login into the account without me having told it what the credentials are?
+
+reply
+thomas says:
+August 6, 2021 at 12:12 pm
+This just worked, so so thankfull!!!!
+
+reply
+Tharcisse Munyaneza says:
+August 17, 2021 at 12:33 pm
+Send mail locally is well working but i want to integrate in django submitted form any relation ?
+
+reply
+Rohit Bhatt says:
+October 23, 2021 at 7:45 pm
+Same issue
+
+reply
+Anonymous says:
+January 10, 2022 at 11:41 am
+Still works in Jan 2022¬ 😀
